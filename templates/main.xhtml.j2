@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>{{ chapter.title }}</title>
+  <link rel="stylesheet" type="text/css" href="style/main.css" />
+</head>
+<body>
+  <h1>{{ chapter.title }}</h1>
+  {% for element in chapter.elements %}
+    {% if element.type == 'heading' %}
+      <h{{ element.level }}>{{ element.text }}</h{{ element.level }}>
+    {% elif element.type == 'paragraph' %}
+      <p>{{ element.text }}</p>
+    {% elif element.type == 'list' %}
+      <ul>
+      {% for item in element.items %}
+        <li>{{ item }}</li>
+      {% endfor %}
+      </ul>
+    {% elif element.type == 'blockquote' %}
+      <blockquote><p>{{ element.text }}</p></blockquote>
+    {% elif element.type == 'figure' %}
+      <figure>
+        <img src="{{ element.src }}" alt="Image"/>
+        {% if element.caption %}
+          <figcaption>{{ element.caption }}</figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
+  {% endfor %}
+</body>
+</html> 
